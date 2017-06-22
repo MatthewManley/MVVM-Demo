@@ -10,11 +10,11 @@ using NUnit.Framework;
 namespace DemoApplication.Tests
 {
     [TestFixture]
-    public class DatabaseTests : IDisposable
+    public class SqlLiteRepositoryTests : IDisposable
     {
         private readonly StandardKernel _kernel;
 
-        public DatabaseTests()
+        public SqlLiteRepositoryTests()
         {
             _kernel = new StandardKernel();
 

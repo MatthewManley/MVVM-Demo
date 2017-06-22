@@ -6,7 +6,7 @@ namespace DemoApplication.Models
     public abstract class Vehicle
     {
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public int Id { get; set; }
         
         public string Make { get; set; }
         public string Model { get; set; }
@@ -17,22 +17,10 @@ namespace DemoApplication.Models
         /// </summary>
         public int Price { get; set; }
         
-        //I prefer the car object not knowing how its saved
-        //public async Task Save()
-        //{
-        //    await _repository.SaveVehicle(this);
-        //}
+        public override bool Equals(object obj) => (obj as Vehicle)?.Id == Id;
 
-        //internal void SetRepository(IVehicleRepository repository)
-        //{
-        //    _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        //}
-
-        //This is something that you should have
-        public override bool Equals(object obj) => (obj as Vehicle)?.ID == ID;
-
-        //Probably not the best way to generate hash codes but this will do
+        //Probably not the best way to generate hash codes but this will do for now
         //TODO: Hash code should be calcualted by read only properties
-        public override int GetHashCode() => ID;
+        public override int GetHashCode() => Id;
     }
 }

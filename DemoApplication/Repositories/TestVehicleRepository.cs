@@ -14,11 +14,11 @@ namespace DemoApplication.Repositories
             //I am doing this for vehicle indexing, since this isn't actually a database.
             Vehicles = new Dictionary<int, Vehicle>
             {
-                {0, new Car {ID = 0, Capacity = 5, Make = "Fiat", Model = "Punto", TopSpeed = 70, Price = 1000}},
-                {1, new Car {ID = 1, Capacity = 4, Make = "Renault", Model = "Megane", TopSpeed = 80, Price = 2000}},
-                {2,  new Car {ID = 2, Capacity = 5, Make = "Ford", Model = "Fiesta", TopSpeed = 90, Price = 1500}},
-                {3, new Truck {ID = 3, Capacity = 3, Make = "Volvo", Model = "FMX", WheelBase = "Large", Price = 10000}},
-                {4, new Truck {ID = 4, Capacity = 3, Make = "Volvo", Model = "VHD", WheelBase = "Small", Price = 8000} }
+                {0, new Car {Id = 0, Capacity = 5, Make = "Fiat", Model = "Punto", TopSpeed = 70, Price = 1000}},
+                {1, new Car {Id = 1, Capacity = 4, Make = "Renault", Model = "Megane", TopSpeed = 80, Price = 2000}},
+                {2,  new Car {Id = 2, Capacity = 5, Make = "Ford", Model = "Fiesta", TopSpeed = 90, Price = 1500}},
+                {3, new Truck {Id = 3, Capacity = 3, Make = "Volvo", Model = "FMX", WheelBase = "Large", Price = 10000}},
+                {4, new Truck {Id = 4, Capacity = 3, Make = "Volvo", Model = "VHD", WheelBase = "Small", Price = 8000} }
             };
         }
 
@@ -36,7 +36,7 @@ namespace DemoApplication.Repositories
         
         public Task AddVehicle(Vehicle vehicle)
         {
-            Vehicles.Add(vehicle.ID, vehicle);
+            Vehicles.Add(vehicle.Id, vehicle);
 
             //.NET 4.6 and above
             //return Task.CompletedTask;
@@ -54,7 +54,7 @@ namespace DemoApplication.Repositories
             //    throw new KeyNotFoundException();
             //}
 
-            Vehicles[vehicle.ID] = vehicle;
+            Vehicles[vehicle.Id] = vehicle;
 
             //.NET 4.6 and above
             //return Task.CompletedTask;
@@ -65,7 +65,7 @@ namespace DemoApplication.Repositories
 
         public Task DeleteVehicle(Vehicle vehicle)
         {
-            Vehicles.Remove(vehicle.ID);
+            Vehicles.Remove(vehicle.Id);
 
             //.NET 4.6 and above
             //return Task.CompletedTask;

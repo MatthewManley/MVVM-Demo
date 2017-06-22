@@ -29,19 +29,19 @@ namespace DemoApplication.Factories
 
             throw new ArgumentException($"Vehicle is not valid type; \'{v.GetType()}\'.");
         }
+        
+        public VehicleViewModel Create(string type)
+        {
+            var model = Reflect<Vehicle>(type);
+            return Create(model);
+        }
 
-        //I don't like comparing as a string
-        //public VehicleViewModel Create(string type)
-        //{
-        //    var model = Reflect<Vehicle>(type);
-        //    return Create(model);
-        //}
-
-        //private T Reflect<T>(string type)
-        //{
-        //    // I wouldn't normally use reflection because it is slow; this is just a play with Activator.
-        //    var nameSpace = Assembly.GetExecutingAssembly().GetName().Name;
-        //    return (T) Activator.CreateInstance(nameSpace, $"{nameSpace}.Models.{type}", false, BindingFlags.Instance | BindingFlags.Public | BindingFlags.CreateInstance, null, new object[] { _vehicleRepository }, null, null).Unwrap();
-        //}
+        private T Reflect<T>(string type)
+        {
+            // I wouldn't normally use reflection because it is slow; this is just a play with Activator.
+            var nameSpace = Assembly.GetExecutingAssembly().GetName().Name;
+            return (T)Activator.CreateInstance(Type.GetType($"{nameSpace}.Models.{type}"));
+            //return (T)Activator.CreateInstance(nameSpace, $"{nameSpace}.Models.{type}", false, BindingFlags.Instance | BindingFlags.Public | BindingFlags.CreateInstance, null, new object[] { _vehicleRepository }, null, null).Unwrap();
+        }
     }
 }

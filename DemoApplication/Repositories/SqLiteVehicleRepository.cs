@@ -34,11 +34,11 @@ namespace DemoApplication.Repositories
 
         public async Task<Vehicle> GetVehicle(int id)
         {
-            Vehicle vehicle = (await _db.Table<Car>().Where(x => x.ID == id).ToListAsync()).FirstOrDefault();
+            Vehicle vehicle = (await _db.Table<Car>().Where(x => x.Id == id).ToListAsync()).FirstOrDefault();
             if (vehicle != null)
                 return vehicle;
 
-            vehicle = (await _db.Table<Truck>().Where(x => x.ID == id).ToListAsync()).FirstOrDefault();
+            vehicle = (await _db.Table<Truck>().Where(x => x.Id == id).ToListAsync()).FirstOrDefault();
             if (vehicle != null)
                 return vehicle;
 
