@@ -19,7 +19,7 @@ namespace DemoApplication.ViewModels
         #endregion
 
         private readonly ILog _log;
-        private readonly IRepository _repository;
+        private readonly IVehicleRepository _vehicleRepository;
         private readonly VehicleViewModelFactory _vehicleFactory;
 
         public ObservableCollection<VehicleViewModel> Vehicles { get; }
@@ -39,10 +39,10 @@ namespace DemoApplication.ViewModels
 
         public BackgroundManager BackgroundManager { get; }
 
-        public MainViewModel(ILog log, IRepository repository, VehicleViewModelFactory vehicleFactory, BackgroundManager backgroundManager, ObservableCollection<VehicleViewModel> vehicles)
+        public MainViewModel(ILog log, IVehicleRepository vehicleRepository, VehicleViewModelFactory vehicleFactory, BackgroundManager backgroundManager, ObservableCollection<VehicleViewModel> vehicles)
         {
             _log = log;
-            _repository = repository;
+            _vehicleRepository = vehicleRepository;
             _vehicleFactory = vehicleFactory;
 
             BackgroundManager = backgroundManager;
@@ -59,10 +59,13 @@ namespace DemoApplication.ViewModels
             {
                 WorkingViewModel.Instance.Working = true;
 
-                await _repository.Load();
+                var vehicles = (await _vehicleRepository.GetVehicles()).Select(vehicle => _vehicleFactory.Create(vehicle));
 
-                foreach (var v in _repository.Vehicles)
-                    Vehicles.Add(_vehicleFactory.Create(v));
+                //TODO: See about making this work
+                //Vehicles = new ObservableCollection<VehicleViewModel>(vehicles);
+
+                foreach (var vehicle in vehicles)
+                    Vehicles.Add(vehicle);
 
                 SelectedVehicle = Vehicles.First();
 

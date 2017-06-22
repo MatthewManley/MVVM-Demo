@@ -5,25 +5,21 @@ using System.Threading.Tasks;
 
 namespace DemoApplication.Repositories
 {
-    public class TestRepository : IRepository
+    public class TestVehicleRepository : IVehicleRepository
     {
-        private Dictionary<int, Vehicle> Vehicles { get; } = new Dictionary<int, Vehicle>();
+        private Dictionary<int, Vehicle> Vehicles { get; }
 
-        public TestRepository()
+        public TestVehicleRepository()
         {
             //I am doing this for vehicle indexing, since this isn't actually a database.
-            List<Vehicle> tempList = new List<Vehicle>
+            Vehicles = new Dictionary<int, Vehicle>
             {
-                new Car {Capacity = 5, Make = "Fiat", Model = "Punto", TopSpeed = 70, Price = 1000},
-                new Car {Capacity = 4, Make = "Renault", Model = "Megane", TopSpeed = 80, Price = 2000},
-                new Car {Capacity = 5, Make = "Ford", Model = "Fiesta", TopSpeed = 90, Price = 1500},
-                new Truck {Capacity = 3, Make = "Volvo", Model = "FMX", WheelBase = "Large", Price = 10000},
-                new Truck {Capacity = 3, Make = "Volvo", Model = "VHD", WheelBase = "Small", Price = 8000}
+                {0, new Car {ID = 0, Capacity = 5, Make = "Fiat", Model = "Punto", TopSpeed = 70, Price = 1000}},
+                {1, new Car {ID = 1, Capacity = 4, Make = "Renault", Model = "Megane", TopSpeed = 80, Price = 2000}},
+                {2,  new Car {ID = 2, Capacity = 5, Make = "Ford", Model = "Fiesta", TopSpeed = 90, Price = 1500}},
+                {3, new Truck {ID = 3, Capacity = 3, Make = "Volvo", Model = "FMX", WheelBase = "Large", Price = 10000}},
+                {4, new Truck {ID = 4, Capacity = 3, Make = "Volvo", Model = "VHD", WheelBase = "Small", Price = 8000} }
             };
-            foreach (var vehicle in tempList)
-            {
-                Vehicles.Add(vehicle.ID, vehicle);
-            }
         }
 
         public Task<ICollection<Vehicle>> GetVehicles()
@@ -37,7 +33,7 @@ namespace DemoApplication.Repositories
             var vehicle = Vehicles[id];
             return Task.FromResult(vehicle);
         }
-
+        
         public Task AddVehicle(Vehicle vehicle)
         {
             Vehicles.Add(vehicle.ID, vehicle);
@@ -48,9 +44,16 @@ namespace DemoApplication.Repositories
             //Below .NET 4.6
             return Task.FromResult(true);
         }
-
+        
         public Task UpdateVehicle(Vehicle vehicle)
         {
+            //If you want to force the vehicle to exist first
+            //if (!Vehicles.ContainsKey(vehicle.ID))
+            //{
+                  //TODO: Should probably create custom exception
+            //    throw new KeyNotFoundException();
+            //}
+
             Vehicles[vehicle.ID] = vehicle;
 
             //.NET 4.6 and above

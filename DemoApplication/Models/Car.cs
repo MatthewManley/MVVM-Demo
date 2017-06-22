@@ -6,7 +6,7 @@ namespace DemoApplication.Models
     {
         public decimal TopSpeed { get; set; }
 
-        public Car() : base(null, "Car") { } // required empty constructor for sqlite
-        public Car(IRepository repository) : base(repository, "Car") { }
+        //public Car() : base(null, "Car") { } // required empty constructor for sqlite
+        //public Car(IVehicleRepository repository) : base(repository, "Car") { }
     }
 }

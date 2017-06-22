@@ -8,6 +8,7 @@ using System.Windows.Input;
 using DemoApplication.Models;
 using DemoApplication.MVVM;
 using DemoApplication.Properties;
+using DemoApplication.Repositories;
 using log4net;
 using LiveCharts;
 using LiveCharts.Defaults;
@@ -17,29 +18,36 @@ namespace DemoApplication.ViewModels
 {
     public abstract class VehicleViewModel : INotifyPropertyChanged
     {
+        private readonly IVehicleRepository _vehicleRepository;
         private readonly ILog _log;
 
         protected abstract Vehicle Vehicle { get; set; }
 
-        private string _type;
+        //private string _type;
         private string _make;
         private string _model;
         private int _capacity;
-        private double _price;
+        private int _price;
 
         public ICommand SaveVehicleCommand => new AsyncCommand<ObservableCollection<VehicleViewModel>>(SaveVehicle, CanSaveVehicle);
         public ICommand TellMeMoreCommand => new DelegateCommand<VehicleViewModel>(TellMeMore);
 
-        public string Type
+        //Resarpher reccomended this be protected, not sure if it actually should be or not
+        protected VehicleViewModel(IVehicleRepository vehicleRepository)
         {
-            get { return _type; }
-            set
-            {
-                if (value == _type) return;
-                _type = value;
-                OnPropertyChanged();
-            }
+            _vehicleRepository = vehicleRepository;
         }
+
+        //public string Type
+        //{
+        //    get { return _type; }
+        //    set
+        //    {
+        //        if (value == _type) return;
+        //        _type = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         public string Make
         {
@@ -74,7 +82,7 @@ namespace DemoApplication.ViewModels
             }
         }
 
-        public double Price
+        public int Price
         {
             get { return _price; }
             set
@@ -105,7 +113,7 @@ namespace DemoApplication.ViewModels
         {
             Vehicle = vehicle;
 
-            Type     = Vehicle.Type;
+            //Type     = Vehicle.Type;
             Make     = Vehicle.Make;
             Model    = Vehicle.Model;
             Capacity = Vehicle.Capacity;
@@ -121,7 +129,7 @@ namespace DemoApplication.ViewModels
             _log.Info("Saving VehicleViewModel.");
 
             Commit();
-            await Vehicle.Save();
+            await _vehicleRepository.UpdateVehicle(Vehicle);
 
             if (!vehicles.Contains(this))
                 vehicles.Add(this);
@@ -136,7 +144,7 @@ namespace DemoApplication.ViewModels
 
         public virtual void Commit()
         {
-            Vehicle.Type     = Type;
+            //Vehicle.Type     = Type;
             Vehicle.Make     = Make;
             Vehicle.Model    = Model;
             Vehicle.Capacity = Capacity;
@@ -145,7 +153,7 @@ namespace DemoApplication.ViewModels
         
         private static void TellMeMore(VehicleViewModel vehicle)
         {
-            MessageBox.Show(string.Format("Vehicle: {0}", vehicle.GetType()));
+            MessageBox.Show($"Vehicle: {vehicle.GetType()}");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

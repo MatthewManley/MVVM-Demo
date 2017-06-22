@@ -7,12 +7,15 @@ namespace DemoApplication.Models
     {
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
-
-        public string Type { get; set; }
+        
         public string Make { get; set; }
         public string Model { get; set; }
         public int Capacity { get; set; }
-        public double Price { get; set; }
+
+        /// <summary>
+        /// Price in cents
+        /// </summary>
+        public int Price { get; set; }
         
         //I prefer the car object not knowing how its saved
         //public async Task Save()
@@ -20,7 +23,7 @@ namespace DemoApplication.Models
         //    await _repository.SaveVehicle(this);
         //}
 
-        //internal void SetRepository(IRepository repository)
+        //internal void SetRepository(IVehicleRepository repository)
         //{
         //    _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         //}

@@ -112,9 +112,9 @@
     <Compile Include="Models\Car.cs" />
     <Compile Include="MVVM\InverseVisibilityConverter.cs" />
     <Compile Include="MVVM\SecondsToTimespanStringConverter.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
-    <Compile Include="Repositories\SQLiteRepository.cs" />
-    <Compile Include="Repositories\TestRepository.cs" />
+    <Compile Include="Repositories\IVehicleRepository.cs" />
+    <Compile Include="Repositories\SqLiteVehicleRepository.cs" />
+    <Compile Include="Repositories\TestVehicleRepository.cs" />
     <Compile Include="Models\Truck.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="MVVM\AsyncCommand.cs" />

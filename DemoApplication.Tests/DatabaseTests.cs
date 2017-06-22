@@ -20,7 +20,7 @@ namespace DemoApplication.Tests
 
             _kernel.Bind<ILog>().ToMethod(context => LogManager.GetLogger(context.Request.Target?.Member.DeclaringType?.FullName));
             _kernel.Bind<ObservableCollection<VehicleViewModel>>().ToSelf().InSingletonScope(); // one which is passed to dispatchers as well as mvm
-            _kernel.Bind<IRepository>().To<SQLiteRepository>().InSingletonScope();
+            _kernel.Bind<IVehicleRepository>().To<SqLiteVehicleRepository>().InSingletonScope();
         }
 
         [Test, Apartment(ApartmentState.STA)]

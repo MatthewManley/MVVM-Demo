@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace DemoApplication.Repositories
 {
-    public interface IRepository
+    public interface IVehicleRepository
     {
         Task<ICollection<Vehicle>> GetVehicles();
         Task<Vehicle> GetVehicle(int id);

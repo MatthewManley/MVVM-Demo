@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace DemoApplication.Repositories
 {
-    public class SQLiteRepository : IRepository
+    public class SqLiteVehicleRepository : IVehicleRepository
     {
         private SQLiteAsyncConnection _db;
         private readonly ILog _log;
 
-        public SQLiteRepository(ILog log)
+        public SqLiteVehicleRepository(ILog log)
         {
             _log = log;
-            _log.Info("Creating new SQLiteRepository.");
+            _log.Info("Creating new SqLiteVehicleRepository.");
         }
 
         public async Task<ICollection<Vehicle>> GetVehicles()
