@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
-using DemoApplication.Models;
+﻿using DemoApplication.Models;
 using log4net;
 using SQLite;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DemoApplication.Repositories
 {
@@ -12,15 +13,13 @@ namespace DemoApplication.Repositories
         private SQLiteAsyncConnection _db;
         private readonly ILog _log;
 
-        //public List<Vehicle> Vehicles { get; } = new List<Vehicle>();
-
         public SQLiteRepository(ILog log)
         {
             _log = log;
             _log.Info("Creating new SQLiteRepository.");
         }
 
-        public async Task<ICollection<Vehicle>> LoadVehicles()
+        public async Task<ICollection<Vehicle>> GetVehicles()
         {
             await CheckAndCreateDatabase();
             await PopulateIfEmpty();
@@ -31,6 +30,35 @@ namespace DemoApplication.Repositories
 
             _log.Info($"Loaded {vehicles.Count} vehicles from database.");
             return vehicles;
+        }
+
+        public async Task<Vehicle> GetVehicle(int id)
+        {
+            Vehicle vehicle = (await _db.Table<Car>().Where(x => x.ID == id).ToListAsync()).FirstOrDefault();
+            if (vehicle != null)
+                return vehicle;
+
+            vehicle = (await _db.Table<Truck>().Where(x => x.ID == id).ToListAsync()).FirstOrDefault();
+            if (vehicle != null)
+                return vehicle;
+
+            //Throw exception or return null
+            return null;
+        }
+
+        public Task AddVehicle(Vehicle vehicle)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task UpdateVehicle(Vehicle vehicle)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task DeleteVehicle(Vehicle vehicle)
+        {
+            throw new System.NotImplementedException();
         }
 
         private async Task CheckAndCreateDatabase()

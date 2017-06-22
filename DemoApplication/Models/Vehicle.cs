@@ -1,14 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
-using DemoApplication.Repositories;
+﻿using DemoApplication.Repositories;
 using SQLite;
 
 namespace DemoApplication.Models
 {
     public abstract class Vehicle
     {
-        //private IRepository _repository;
-
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
 
@@ -17,14 +13,8 @@ namespace DemoApplication.Models
         public string Model { get; set; }
         public int Capacity { get; set; }
         public double Price { get; set; }
-
-        protected Vehicle(IRepository repository, string typ)
-        {
-            //_repository = repository;
-
-            Type = typ;
-        }
         
+        //I prefer the car object not knowing how its saved
         //public async Task Save()
         //{
         //    await _repository.SaveVehicle(this);
@@ -35,8 +25,11 @@ namespace DemoApplication.Models
         //    _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         //}
 
+        //This is something that you should have
         public override bool Equals(object obj) => (obj as Vehicle)?.ID == ID;
 
+        //Probably not the best way to generate hash codes but this will do
+        //TODO: Hash code should be calcualted by read only properties
         public override int GetHashCode() => ID;
     }
 }
