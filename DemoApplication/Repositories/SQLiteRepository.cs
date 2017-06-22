@@ -12,7 +12,7 @@ namespace DemoApplication.Repositories
         private SQLiteAsyncConnection _db;
         private readonly ILog _log;
 
-        public List<Vehicle> Vehicles { get; } = new List<Vehicle>();
+        //public List<Vehicle> Vehicles { get; } = new List<Vehicle>();
 
         public SQLiteRepository(ILog log)
         {
@@ -20,23 +20,17 @@ namespace DemoApplication.Repositories
             _log.Info("Creating new SQLiteRepository.");
         }
 
-        public async Task Load()
+        public async Task<ICollection<Vehicle>> LoadVehicles()
         {
             await CheckAndCreateDatabase();
             await PopulateIfEmpty();
 
-            foreach (var v in await _db.Table<Car>().ToListAsync())
-            {
-                v.SetRepository(this);
-                Vehicles.Add(v);
-            }
-            foreach (var v in await _db.Table<Truck>().ToListAsync())
-            {
-                v.SetRepository(this);
-                Vehicles.Add(v);
-            }
+            var vehicles = new List<Vehicle>();
+            vehicles.AddRange(await _db.Table<Car>().ToListAsync());
+            vehicles.AddRange(await _db.Table<Truck>().ToListAsync());
 
-            _log.Info($"Loaded {Vehicles.Count} vehicles from database.");
+            _log.Info($"Loaded {vehicles.Count} vehicles from database.");
+            return vehicles;
         }
 
         private async Task CheckAndCreateDatabase()
@@ -68,11 +62,8 @@ namespace DemoApplication.Repositories
             }
         }
 
-        public async Task Save(Vehicle vehicle)
+        public async Task SaveVehicle(Vehicle vehicle)
         {
-            if (!Vehicles.Contains(vehicle))
-                Vehicles.Add(vehicle);
-
             await _db.InsertOrReplaceAsync(vehicle);
         }
     }

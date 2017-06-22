@@ -7,7 +7,7 @@ namespace DemoApplication.Models
 {
     public abstract class Vehicle
     {
-        private IRepository _repository;
+        //private IRepository _repository;
 
         [PrimaryKey, AutoIncrement]
         public int ID { get; set; }
@@ -20,19 +20,23 @@ namespace DemoApplication.Models
 
         protected Vehicle(IRepository repository, string typ)
         {
-            _repository = repository;
+            //_repository = repository;
 
             Type = typ;
         }
         
-        public async Task Save()
-        {
-            await _repository.Save(this);
-        }
+        //public async Task Save()
+        //{
+        //    await _repository.SaveVehicle(this);
+        //}
 
-        internal void SetRepository(IRepository repository)
-        {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        }
+        //internal void SetRepository(IRepository repository)
+        //{
+        //    _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        //}
+
+        public override bool Equals(object obj) => (obj as Vehicle)?.ID == ID;
+
+        public override int GetHashCode() => ID;
     }
 }

@@ -6,8 +6,7 @@ namespace DemoApplication.Repositories
 {
     public interface IRepository
     {
-        List<Vehicle> Vehicles { get; }
-        Task Load();
-        Task Save(Vehicle vehicle);
+        Task<ICollection<Vehicle>> LoadVehicles();
+        Task SaveVehicle(Vehicle vehicle);
     }
 }
