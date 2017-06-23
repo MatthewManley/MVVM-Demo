@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class CommandService // Singleton
+    class CommandService
     {
-        private CommandService _instance;
         private readonly ConcurrentStack<ICommand> _commandStack = new ConcurrentStack<ICommand>();
         private readonly ConcurrentStack<ICommand> _undoCommandStack = new ConcurrentStack<ICommand>();
 
@@ -19,14 +18,6 @@ namespace Domain
             _commandStack.Push(command);
             await command.Do();
         }
-
-        private CommandService()
-        {
-            
-        }
-
-        //Singleton Implementation
-        public CommandService Instance => _instance ?? (_instance = new CommandService());
 
         public async Task Undo()
         {
