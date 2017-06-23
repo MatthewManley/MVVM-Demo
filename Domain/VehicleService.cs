@@ -39,16 +39,14 @@ namespace Domain
             await _commandService.ExecuteCommand(deleteVehicleCommand);
         }
 
-        public async Task UpdateVehcile(Vehicle vehicle)
+        public Task UpdateVehcile(Vehicle vehicle)
         {
-            var updateVehicleCommand = new UpdateVehicleCommand(_vehicleRepository, vehicle);
-            await _commandService.ExecuteCommand(updateVehicleCommand);
+            throw new NotImplementedException();
         }
 
-        public async Task UpdateVehcile(Vehicle oldVehicle, Vehicle newVehicle)
+        public Task UpdateVehcile(Vehicle oldVehicle, Vehicle newVehicle)
         {
-            var updateVehicleCommand = new UpdateVehicleCommand(_vehicleRepository, oldVehicle, newVehicle);
-            await _commandService.ExecuteCommand(updateVehicleCommand);
+            throw new NotImplementedException();
         }
     }
 }
