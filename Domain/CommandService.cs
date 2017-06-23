@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    class CommandService
+    public class CommandService : ICommandService
     {
         private readonly ConcurrentStack<ICommand> _commandStack = new ConcurrentStack<ICommand>();
         private readonly ConcurrentStack<ICommand> _undoCommandStack = new ConcurrentStack<ICommand>();
 
-        public async Task ExecuteComand(ICommand command)
+        public async Task ExecuteCommand(ICommand command)
         {
             _undoCommandStack.Clear();
             _commandStack.Push(command);

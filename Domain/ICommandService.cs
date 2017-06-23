@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Domain
 {
-    public interface ICommand
+    public interface ICommandService
     {
-        Task Do();
+        Task ExecuteCommand(ICommand command);
         Task Undo();
+        Task Redo();
     }
 }
