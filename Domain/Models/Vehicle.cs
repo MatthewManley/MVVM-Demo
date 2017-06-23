@@ -1,11 +1,11 @@
-﻿using DemoApplication.Repositories;
-using SQLite;
+﻿//using SQLite;
 
-namespace DemoApplication.Models
+namespace Domain.Models
 {
     public abstract class Vehicle
     {
-        [PrimaryKey, AutoIncrement]
+        // You don't really want database stuff in the domain
+        //[PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         
         public string Make { get; set; }
@@ -16,6 +16,7 @@ namespace DemoApplication.Models
         /// Price in cents
         /// </summary>
         public int Price { get; set; }
+        
         
         public override bool Equals(object obj) => (obj as Vehicle)?.Id == Id;
 
