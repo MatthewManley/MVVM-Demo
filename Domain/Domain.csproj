@@ -45,11 +45,14 @@
     <Compile Include="Commands\DeleteVehicleCommand.cs" />
     <Compile Include="Commands\UpdateVehicleCommand.cs" />
     <Compile Include="ICommand.cs" />
+    <Compile Include="ICommandService.cs" />
+    <Compile Include="IVehicleService.cs" />
     <Compile Include="Models\Car.cs" />
     <Compile Include="Models\Truck.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IVehicleRepository.cs" />
+    <Compile Include="VehicleService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
