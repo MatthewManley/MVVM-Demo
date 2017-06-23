@@ -44,6 +44,7 @@
     <Compile Include="Commands\AddVehicleCommand.cs" />
     <Compile Include="Commands\DeleteVehicleCommand.cs" />
     <Compile Include="Commands\UpdateVehicleCommand.cs" />
+    <Compile Include="Exceptions\VehicleNotFoundException.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="ICommandService.cs" />
     <Compile Include="IVehicleService.cs" />
