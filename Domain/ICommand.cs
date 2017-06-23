@@ -8,5 +8,7 @@ namespace Domain
 {
     interface ICommand
     {
+        Task Do();
+        Task Undo();
     }
 }

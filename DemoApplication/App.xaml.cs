@@ -4,6 +4,8 @@ using System.Reflection;
 using System.Windows;
 using DemoApplication.Repositories;
 using DemoApplication.ViewModels;
+using Domain.Repositories;
+using Infrastructure.Repositories;
 using Jot;
 using log4net;
 using Ninject;

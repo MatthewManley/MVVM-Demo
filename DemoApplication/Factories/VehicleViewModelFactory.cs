@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
-using DemoApplication.Models;
-using DemoApplication.Repositories;
+using Domain.Models;
+using Domain.Repositories;
 using DemoApplication.ViewModels;
 using log4net;
 
@@ -30,7 +30,7 @@ namespace DemoApplication.Factories
             throw new ArgumentException($"Vehicle is not valid type; \'{v.GetType()}\'.");
         }
         
-        public VehicleViewModel Create(string type)
+        public VehicleVi1.ewModel Create(string type)
         {
             var model = Reflect<Vehicle>(type);
             return Create(model);

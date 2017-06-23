@@ -109,14 +109,8 @@
     <Compile Include="Controls\PriceChartControl.xaml.cs">
       <DependentUpon>PriceChartControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Models\Car.cs" />
     <Compile Include="MVVM\InverseVisibilityConverter.cs" />
     <Compile Include="MVVM\SecondsToTimespanStringConverter.cs" />
-    <Compile Include="Repositories\IVehicleRepository.cs" />
-    <Compile Include="Repositories\SqLiteVehicleRepository.cs" />
-    <Compile Include="Repositories\TestVehicleRepository.cs" />
-    <Compile Include="Models\Truck.cs" />
-    <Compile Include="Models\Vehicle.cs" />
     <Compile Include="MVVM\AsyncCommand.cs" />
     <Compile Include="Emulators\BackgroundEmulator.cs" />
     <Compile Include="ViewModels\BackgroundManager.cs" />
@@ -214,6 +208,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="screencast.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{c70dfa15-e840-4bd1-ad02-666bb2b8b7ff}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Implementations\Implementations.csproj">
+      <Project>{95ab86b7-b067-461b-98e6-3f4de585b66f}</Project>
+      <Name>Implementations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
+      <Project>{6921b9b3-78f3-4833-95af-802db6c1bb93}</Project>
+      <Name>Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{6fc1a322-e839-47dc-ac8f-abf0ae23295f}</Project>
+      <Name>Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.6\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.6\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" />

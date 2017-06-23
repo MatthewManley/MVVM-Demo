@@ -1,9 +1,9 @@
-using DemoApplication.Models;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Domain.Models;
+using Domain.Repositories;
 
-namespace DemoApplication.Repositories
+namespace Infrastructure.Repositories
 {
     public class TestVehicleRepository : IVehicleRepository
     {
@@ -50,7 +50,7 @@ namespace DemoApplication.Repositories
             //If you want to force the vehicle to exist first
             //if (!Vehicles.ContainsKey(vehicle.ID))
             //{
-                  //TODO: Should probably create custom exception
+                  //TODO: Create custom exception
             //    throw new KeyNotFoundException();
             //}
 
@@ -63,10 +63,15 @@ namespace DemoApplication.Repositories
             return Task.FromResult(true);
         }
 
-        public Task DeleteVehicle(Vehicle vehicle)
+        public async Task DeleteVehicle(Vehicle vehicle)
         {
-            Vehicles.Remove(vehicle.Id);
+            await DeleteVehicle(vehicle.Id);
+        }
 
+        public Task DeleteVehicle(int id)
+        {
+            Vehicles.Remove(id);
+            
             //.NET 4.6 and above
             //return Task.CompletedTask;
 

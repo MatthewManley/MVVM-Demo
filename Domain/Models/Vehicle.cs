@@ -4,12 +4,24 @@ namespace Domain.Models
 {
     public abstract class Vehicle
     {
-        // You don't really want database stuff in the domain
-        //[PrimaryKey, AutoIncrement]
+        /// <summary>
+        /// Unique Id of the Vehicle
+        /// </summary>
         public int Id { get; set; }
-        
+
+        /// <summary>
+        /// Make of the Vehicle
+        /// </summary>
         public string Make { get; set; }
+
+        /// <summary>
+        /// Model of the vehicle
+        /// </summary>
         public string Model { get; set; }
+
+        /// <summary>
+        /// Number of passengers that can fit in the vehicle
+        /// </summary>
         public int Capacity { get; set; }
 
         /// <summary>
@@ -17,11 +29,8 @@ namespace Domain.Models
         /// </summary>
         public int Price { get; set; }
         
-        
         public override bool Equals(object obj) => (obj as Vehicle)?.Id == Id;
 
-        //Probably not the best way to generate hash codes but this will do for now
-        //TODO: Hash code should be calcualted by read only properties
         public override int GetHashCode() => Id;
     }
 }

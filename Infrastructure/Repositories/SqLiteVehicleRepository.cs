@@ -1,12 +1,10 @@
-﻿using DemoApplication.Models;
-using log4net;
-using SQLite;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
+using Domain.Models;
+using Domain.Repositories;
 
-namespace DemoApplication.Repositories
+namespace Infrastructure.Repositories
 {
     public class SqLiteVehicleRepository : IVehicleRepository
     {
