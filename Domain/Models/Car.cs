@@ -5,6 +5,6 @@
         /// <summary>
         /// How fast the Vehicle can travel
         /// </summary>
-        public double TopSpeed { get; set; }
+        public decimal TopSpeed { get; set; }
     }
 }

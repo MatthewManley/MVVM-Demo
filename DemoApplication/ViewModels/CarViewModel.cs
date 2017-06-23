@@ -1,4 +1,4 @@
-using DemoApplication.Models;
+using Domain.Models;
 using log4net;
 
 namespace DemoApplication.ViewModels

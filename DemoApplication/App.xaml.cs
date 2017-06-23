@@ -2,8 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Windows;
-using DemoApplication.Repositories;
 using DemoApplication.ViewModels;
+using Domain;
 using Domain.Repositories;
 using Infrastructure.Repositories;
 using Jot;
@@ -23,6 +23,8 @@ namespace DemoApplication
             _kernel.Bind<ILog>().ToMethod(context => LogManager.GetLogger(context.Request.Target?.Member.DeclaringType?.FullName));
             _kernel.Bind<ObservableCollection<VehicleViewModel>>().ToSelf().InSingletonScope(); // one which is passed to dispatchers as well as mvm
             _kernel.Bind<IVehicleRepository>().To<TestVehicleRepository>().InSingletonScope();
+            _kernel.Bind<ICommandService>().To<CommandService>().InSingletonScope();
+            _kernel.Bind<IVehicleService>().To<VehicleService>().InSingletonScope();
             _kernel.Bind<StateTracker>().ToSelf().InSingletonScope(); // only ever need one jot tracker
 
             InitialiseLogs();

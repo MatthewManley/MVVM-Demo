@@ -3,12 +3,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using DemoApplication.Factories;
 using DemoApplication.MVVM;
 using DemoApplication.Properties;
-using DemoApplication.Repositories;
+using Domain;
+using Domain.Repositories;
 using log4net;
+using ICommand = System.Windows.Input.ICommand;
 
 namespace DemoApplication.ViewModels
 {
@@ -19,7 +20,7 @@ namespace DemoApplication.ViewModels
         #endregion
 
         private readonly ILog _log;
-        private readonly IVehicleRepository _vehicleRepository;
+        private readonly IVehicleService _vehicleService;
         private readonly VehicleViewModelFactory _vehicleFactory;
 
         public ObservableCollection<VehicleViewModel> Vehicles { get; }
@@ -39,10 +40,10 @@ namespace DemoApplication.ViewModels
 
         public BackgroundManager BackgroundManager { get; }
 
-        public MainViewModel(ILog log, IVehicleRepository vehicleRepository, VehicleViewModelFactory vehicleFactory, BackgroundManager backgroundManager, ObservableCollection<VehicleViewModel> vehicles)
+        public MainViewModel(ILog log, IVehicleService vehicleService, VehicleViewModelFactory vehicleFactory, BackgroundManager backgroundManager, ObservableCollection<VehicleViewModel> vehicles)
         {
             _log = log;
-            _vehicleRepository = vehicleRepository;
+            _vehicleService = vehicleService;
             _vehicleFactory = vehicleFactory;
 
             BackgroundManager = backgroundManager;
@@ -59,7 +60,7 @@ namespace DemoApplication.ViewModels
             {
                 WorkingViewModel.Instance.Working = true;
 
-                var vehicles = (await _vehicleRepository.GetVehicles()).Select(vehicle => _vehicleFactory.Create(vehicle));
+                var vehicles = (await _vehicleService.GetVehicles()).Select(vehicle => _vehicleFactory.Create(vehicle));
 
                 //TODO: See about making this work
                 //Vehicles = new ObservableCollection<VehicleViewModel>(vehicles);

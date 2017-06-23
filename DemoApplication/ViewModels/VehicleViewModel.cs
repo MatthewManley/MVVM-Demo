@@ -1,24 +1,24 @@
-﻿using System;
+﻿using DemoApplication.MVVM;
+using DemoApplication.Properties;
+using Domain.Models;
+using Domain.Repositories;
+using LiveCharts;
+using LiveCharts.Defaults;
+using LiveCharts.Wpf;
+using log4net;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
-using DemoApplication.Models;
-using DemoApplication.MVVM;
-using DemoApplication.Properties;
-using DemoApplication.Repositories;
-using log4net;
-using LiveCharts;
-using LiveCharts.Defaults;
-using LiveCharts.Wpf;
+using Domain;
+using ICommand = System.Windows.Input.ICommand;
 
 namespace DemoApplication.ViewModels
 {
     public abstract class VehicleViewModel : INotifyPropertyChanged
     {
-        private readonly IVehicleRepository _vehicleRepository;
+        private readonly IVehicleService _vehicleService;
         private readonly ILog _log;
 
         protected abstract Vehicle Vehicle { get; set; }
@@ -33,9 +33,9 @@ namespace DemoApplication.ViewModels
         public ICommand TellMeMoreCommand => new DelegateCommand<VehicleViewModel>(TellMeMore);
 
         //Resarpher reccomended this be protected, not sure if it actually should be or not
-        protected VehicleViewModel(IVehicleRepository vehicleRepository)
+        protected VehicleViewModel(IVehicleService vehicleService)
         {
-            _vehicleRepository = vehicleRepository;
+            _vehicleService = vehicleService;
         }
 
         //public string Type
@@ -129,7 +129,7 @@ namespace DemoApplication.ViewModels
             _log.Info("Saving VehicleViewModel.");
 
             Commit();
-            await _vehicleRepository.UpdateVehicle(Vehicle);
+            await _vehicleService.UpdateVehicle(Vehicle);
 
             if (!vehicles.Contains(this))
                 vehicles.Add(this);

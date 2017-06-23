@@ -21,6 +21,16 @@ namespace Domain
             _vehicleRepository = vehicleRepository;
         }
 
+        public async Task<Vehicle> GetVehicle(int id)
+        {
+            return await _vehicleRepository.GetVehicle(id);
+        }
+
+        public async Task<ICollection<Vehicle>> GetVehicles()
+        {
+            return await _vehicleRepository.GetVehicles();
+        }
+
         public async Task AddVehicle(Vehicle vehicle)
         {
             var addVehcileCommand = new AddVehicleCommand(_vehicleRepository, vehicle);
@@ -39,13 +49,13 @@ namespace Domain
             await _commandService.ExecuteCommand(deleteVehicleCommand);
         }
 
-        public async Task UpdateVehcile(Vehicle vehicle)
+        public async Task UpdateVehicle(Vehicle vehicle)
         {
             var updateVehicleCommand = new UpdateVehicleCommand(_vehicleRepository, vehicle);
             await _commandService.ExecuteCommand(updateVehicleCommand);
         }
 
-        public async Task UpdateVehcile(Vehicle oldVehicle, Vehicle newVehicle)
+        public async Task UpdateVehicle(Vehicle oldVehicle, Vehicle newVehicle)
         {
             var updateVehicleCommand = new UpdateVehicleCommand(_vehicleRepository, oldVehicle, newVehicle);
             await _commandService.ExecuteCommand(updateVehicleCommand);
