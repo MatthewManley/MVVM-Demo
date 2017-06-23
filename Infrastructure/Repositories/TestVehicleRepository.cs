@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Domain.Models;
 using Domain.Repositories;
+using Domain.Exceptions;
 
 namespace Infrastructure.Repositories
 {
@@ -30,8 +31,12 @@ namespace Infrastructure.Repositories
 
         public Task<Vehicle> GetVehicle(int id)
         {
-            var vehicle = Vehicles[id];
-            return Task.FromResult(vehicle);
+            Vehicle vehicle;
+            if (Vehicles.TryGetValue(id, out vehicle))
+            {
+                return Task.FromResult(vehicle);
+            }
+            throw new VehicleNotFoundException(id);
         }
         
         public Task AddVehicle(Vehicle vehicle)
@@ -48,11 +53,10 @@ namespace Infrastructure.Repositories
         public Task UpdateVehicle(Vehicle vehicle)
         {
             //If you want to force the vehicle to exist first
-            //if (!Vehicles.ContainsKey(vehicle.ID))
-            //{
-                  //TODO: Create custom exception
-            //    throw new KeyNotFoundException();
-            //}
+            if (!Vehicles.ContainsKey(vehicle.Id))
+            {
+                throw new VehicleNotFoundException(vehicle.Id);
+            }
 
             Vehicles[vehicle.Id] = vehicle;
 
@@ -70,6 +74,12 @@ namespace Infrastructure.Repositories
 
         public Task DeleteVehicle(int id)
         {
+            //If you want to force the vehicle to exist first
+            if (!Vehicles.ContainsKey(id))
+            {
+                throw new VehicleNotFoundException(id);
+            }
+
             Vehicles.Remove(id);
             
             //.NET 4.6 and above
