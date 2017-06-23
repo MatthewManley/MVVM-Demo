@@ -11,7 +11,8 @@ namespace Domain.Commands
     class DeleteVehicleCommand : ICommand
     {
         private readonly IVehicleRepository _vehicleRepository;
-        private readonly Vehicle _vehicle;
+        private readonly int? _id;
+        private Vehicle _vehicle;
 
         public DeleteVehicleCommand(IVehicleRepository vehicleRepository, Vehicle vehicle)
         {
@@ -19,9 +20,28 @@ namespace Domain.Commands
             _vehicle = vehicle;
         }
 
+        public DeleteVehicleCommand(IVehicleRepository vehicleRepository, int id)
+        {
+            _vehicleRepository = vehicleRepository;
+            _id = id;
+        }
+
         public async Task Do()
         {
-            await _vehicleRepository.DeleteVehicle(_vehicle);
+            if (_vehicle != null)
+            {
+                await _vehicleRepository.DeleteVehicle(_vehicle);
+            }
+            else if (_id != null)
+            {
+                _vehicle = await _vehicleRepository.GetVehicle(_id.Value);
+                await _vehicleRepository.DeleteVehicle(_id.Value);
+            }
+            else
+            {
+                //TODO: Create custom exception
+                throw new Exception();
+            }
         }
 
         public async Task Undo()

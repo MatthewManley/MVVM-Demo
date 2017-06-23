@@ -1,6 +1,4 @@
-﻿//using SQLite;
-
-namespace Domain.Models
+﻿namespace Domain.Models
 {
     public abstract class Vehicle
     {
